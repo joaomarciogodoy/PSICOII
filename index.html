@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSICO II</title>
+</head>
+
+<body>
+
+
+
+
+
+    <button id="btn1">ESQUERDA</button>
+    <button id="btn2">DIREITA</button>
+
+
+    <div class="div"></div>
+    <div class="div"></div>
+    <div class="div"></div>
+
+
+
+
+    <script type="module">
+
+
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAKSXn0ksqGN_umz1pI1YMVzTkRo6iHJ9Y",
+            authDomain: "psico-51b4e.firebaseapp.com",
+            projectId: "psico-51b4e",
+            storageBucket: "psico-51b4e.appspot.com",
+            messagingSenderId: "533176246319",
+            appId: "1:533176246319:web:f26af802a75275975aa6da"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import { getDatabase, ref, set, child, update, remove, get, push } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js"
+
+
+        const db = getDatabase()
+
+        var btn1 = document.getElementById("btn1")
+        var btn2 = document.getElementById("btn2")
+
+
+
+
+
+
+        function pushEsquerda() {
+            const postListRef = ref(db, 'dados/' + "esquerda");
+            const pushesquerda = push(postListRef);
+            set(pushesquerda, {
+                voto: 1
+            });
+
+            alert('Voto enviado com sucesso!')
+
+        }
+        btn1.addEventListener("click", pushEsquerda)
+
+
+        function pushDireita() {
+            const postListRef = ref(db, 'dados/' + "direita");
+            const pushDireita = push(postListRef);
+            set(pushDireita, {
+                voto: 1
+            });
+
+            alert('Voto enviado com sucesso!')
+
+        }
+        btn2.addEventListener("click", pushDireita)
+
+
+
+
+    </script>
+
+</body>
+
+</html>

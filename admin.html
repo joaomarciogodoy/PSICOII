@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+</head>
+
+<body>
+
+
+    <button id="btnselect">SELECIONAR</button>
+    <button id="create">CRIAR</button>
+
+
+    <script type="module">
+
+
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAKSXn0ksqGN_umz1pI1YMVzTkRo6iHJ9Y",
+            authDomain: "psico-51b4e.firebaseapp.com",
+            projectId: "psico-51b4e",
+            storageBucket: "psico-51b4e.appspot.com",
+            messagingSenderId: "533176246319",
+            appId: "1:533176246319:web:f26af802a75275975aa6da"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import { getDatabase, ref, set, child, update, remove, get, push } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js"
+
+
+        const db = getDatabase()
+
+
+
+        var btnselect = document.getElementById("btnselect")
+        var btncriar = document.getElementById("create")
+
+
+
+
+
+        function insertDataesquerda() {
+            let vota1 = [0]
+            set(ref(db, 'dados/' + "esquerda"), vota1).then(() => {
+
+            })
+        }
+
+
+
+
+        function insertDatadireita() {
+
+            let vota2 = [0]
+            set(ref(db, 'dados/' + "direita"), vota2).then(() => {
+            })
+
+        }
+
+
+
+
+        function criar() {
+            insertDataesquerda()
+            insertDatadireita()
+
+        }
+
+        btncriar.addEventListener("click", criar)
+
+
+
+
+
+
+        function selectData() {
+            const dbref = ref(db)
+
+            get(child(dbref, 'dados/' + "esquerda")).then((snapshot) => {
+
+
+                var tamanhoesquerda = snapshot.size - 1
+
+                get(child(dbref, 'dados/' + "direita")).then((snapshot) => {
+
+
+                    var tamanhodireita = snapshot.size - 1
+
+                    console.log(tamanhoesquerda)
+                    console.log(tamanhodireita)
+
+                    if (tamanhoesquerda > tamanhodireita) {
+                        alert('A votação foi para a esquerda!')
+                    }
+                    else if (tamanhodireita > tamanhoesquerda) {
+                        alert('A votação foi para a direita!')
+                    }
+                    else {
+                        alert('A votação foi empatada!')
+                    }
+                })
+            })
+        }
+
+        btnselect.addEventListener("click", selectData)
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
